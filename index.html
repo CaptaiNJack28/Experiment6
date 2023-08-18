@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Treehouse</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const childInfo = document.querySelector('.child-info');
+
+            function updateTextSize() {
+                const screenWidth = window.innerWidth;
+                const baseFontSize = 16; // Adjust as needed
+                const newSize = baseFontSize * (screenWidth / 800); // Adjust the base width as needed
+
+                childInfo.style.fontSize = `${newSize}px`;
+            }
+
+            updateTextSize();
+            window.addEventListener('resize', updateTextSize);
+        });
+    </script>
+
+    <style>
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            padding: 10px;
+            width: 100%;
+            height: auto;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+        }
+
+        .menu li {
+            margin-right: 20px;
+        }
+
+        .menu li:last-child {
+            margin-right: 0;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            font-family: "Bahnschrift";
+            font-size: 30px;
+            font-weight: semibold;
+            position: relative;
+            /* To position the underline */
+        }
+
+        .menu li a:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            /* Adjust this value for the underline position */
+            background-color: var(--hover-color);
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .menu li a:hover:before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+
+        .admission-button {
+            cursor: pointer;
+            text-align: center;
+            outline: none;
+            overflow: hidden;
+            padding: 10px 20px;
+            background-color: #B7D72C;
+            color: #fff;
+            font-family: "Bahnschrift";
+            font-size: 35px;
+            font-weight: regular;
+            text-decoration: none;
+            border-radius: 12px;
+        }
+
+        .admission-button:hover {
+            background-color: #6a2f25dd;
+        }
+
+        .admission-button:active {
+            background-color: skyblue;
+            transform: translateY(4px);
+        }
+
+        .banner {
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+
+        .text-container {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            top: 30%;
+            overflow: hidden;
+            left: 3%;
+            transform: translateY(-50%);
+
+        }
+
+        .text-container h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .text-container p {
+            font-size: 16px;
+            line-height: 0.2;
+        }
+
+        @media screen and (max-width: 768px) {
+            .text-container {
+                width: 90%;
+            }
+
+            .text-container h1 {
+                font-size: 20px;
+            }
+
+            .text-container p {
+                font-size: 14px;
+            }
+        }
+
+
+        button {
+            position: relative;
+            overflow: hidden;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            background-color: #8e3b2d;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        button::after {
+            content: "";
+            display: block;
+            height: 4px;
+            width: 100%;
+            background-color: white;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        button:hover::after {
+            transform: scaleX(1);
+        }
+
+
+
+        .cards-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            width: 30%;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .overlay {
+            opacity: 1;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        #main-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .hover-text {
+            position: absolute;
+            max-width: fit-content;
+            height: fit-content;
+            opacity: 0;
+            background-color: rgba(0, 0, 0, 0.503);
+            transition: opacity 0.3s ease;
+        }
+
+        #text1 {
+            background-color: rgba(255, 0, 0, 0.484);
+            color: white;
+            font-size: 40px;
+            top: 39.5%;
+            left: 25.%;
+        }
+
+
+        .image-container:hover #text1,
+        .image-container:hover #text2,
+        .image-container:hover #text3 {
+            opacity: 1;
+        }
+
+        .shape-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+            max-width: 200%;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #3498db;
+            clip-path: rectangle(50%, 50%, 100%, 100%);
+            z-index: -1;
+        }
+
+        .cards2-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            max-width: 200%;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .cardY {
+            position: relative;
+            width: 300px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .cardY:hover {
+            transform: translateY(-5px);
+        }
+
+        .cardY img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .cardY-content {
+            padding: 10px;
+            background-color: var(--bg-color);
+            text-align: center;
+        }
+
+        .cardY .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cardY:hover .overlay {
+            opacity: 1;
+        }
+
+        .ybutton {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgb(154, 68, 17);
+            color: #ffffff;
+            font-size: medium;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .gallery-container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .gallery-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .image-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .image-item {
+            position: relative;
+            width: 200px;
+        }
+
+        .image-item img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .image-description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-family: 'Bahnschrift';
+            font-size: 40px;
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(255, 228, 196, 0.527);
+            color: black;
+            font-weight: bolder;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-item:hover .image-description {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .gimage-container {
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(Path\ 9.png);
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .center-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .image-box {
+            position: relative;
+            margin: 20px;
+        }
+
+        .image-box img {
+            max-width: 100%;
+            height: auto;
+            border: 4px solid #fff;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .image-box:hover img {
+            transform: scale(1.1);
+        }
+
+        .description {
+            position: absolute;
+            font-weight: bold;
+            font-family: 'Tsukimi Rounded';
+            font-size: 50px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #8E3B2D;
+            color: #fff;
+            padding: 5px 10px;
+            display: none;
+        }
+
+        .image-box:hover .description {
+            display: block;
+        }
+
+        .tv-container {
+            position: relative;
+        }
+
+        .tv-image {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tv-screen {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .child-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .child-overlay:hover {
+            opacity: 1;
+        }
+
+        .child-image {
+            width: 100px;
+            /* Adjust as needed */
+            height: 100px;
+            border-radius: 50%;
+            align-items: top-left;
+        }
+
+        .child-info {
+            text-align: left;
+            padding: 10px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .child-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        .footer {
+            background-color: #37e9313d;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer-logo {
+            width: 50px;
+            height: auto;
+        }
+
+        .footer-text {
+            color: #8B4513;
+            margin: 10px 0;
+        }
+
+        .footer-phone {
+            margin: 10px 0;
+            font-size: 30px;
+            font-weight: regular;
+            font-family: 'Bahnschrift';
+        }
+
+        .footer-nav {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .footer-nav li {
+            margin: 0 10px;
+            font-weight: bold;
+            font-family: 'Bahnschrift';
+            font-size: 30px;
+            font-weight: regular;
+            color: black;
+        }
+
+        .footer-mail {
+            margin: 10px 0;
+            font-size: 30px;
+            font-weight: regular;
+            font-family: 'Bahnschrift';
+        }
+
+        .footer-location {
+            font-size: 30px;
+            font-weight: regular;
+            font-family: 'Bahnschrift';
+            margin: 10px 0;
+        }
+
+        .footer-map {
+            margin-top: 20px;
+            width: 100px;
+            height: auto;
+        }
+
+        .footer-underline {
+            border-bottom: 1px solid #8B4513;
+            margin: 15px auto;
+            width: 50%;
+        }
+
+        .footer-madeby {
+            font-size: 30px;
+            font-weight: regular;
+            font-family: 'Bahnschrift';
+            color: #8B4513;
+        }
+
+        @media (max-width: 768px) {
+            .footer-nav {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Logo" id="#home" />
+        </div>
+        <ul class="menu" width="100%" height="auto">
+            <li id="home"><a href="#home" style="color: #147240">Home</a></li>
+            <li id="about"><a href="Aboutus.html" style="color: #8e3b2d">About</a></li>
+            <li id="gallery"><a href="Gallery.html" style="color: #147240">Gallery</a></li>
+            <li id="contact"><a href="Contactus.html" style="color: #8e3b2d">Contact Us</a></li>
+            <a href="EnrollNow.html" class="admission-button" width="100%" height="auto">Admission-Now</a>
+        </ul>
+    </nav>
+    <div class="banner">
+        <img src="Banner.png" alt="go for it">
+        <div class="text-container">
+            <br /><br /><br /><br />
+            <p style="
+            font-family: 'Bahnschrift';
+            font-size: 30px;
+            font-weight: semibold;
+          ">
+                THE BEST KINDERGARTEN
+            </p>
+            <p style="
+            font-family: 'Plantin MT pro';
+            color: #278456;
+            font-size: 40px;
+            font-weight: bold;">
+                Join our Friendly<br />
+            </p>
+            <p style="
+            font-family: 'Plantin MT pro';
+            color: #8e3b2d;
+            font-weight: bold;
+            font-size: 40px;
+          ">
+                TreeHouse family
+            </p>
+            <p style="
+            font-family: 'Bahnschrift';
+            font-size: 22px;
+            font-weight: Regular;
+          ">
+                We have a unique program that helps each child quickly<br /><br /><br /><br /><br />
+                adapt and feel at home. We also help each child find his<br /><br /><br /><br /><br />
+                own way.Become a person,be happy and change the <br /><br /><br /><br /><br />
+                world for the better<br /><br /><br /><br /><br />
+            </p>
+            <button>Enroll Now</button>
+        </div>
+    </div>
+    </div>
+    <div class="cards-container">
+        <div class="card">
+            <img src="card1.png" alt="Image 1">
+            <div class="overlay"></div>
+        </div>
+        <div class="card">
+            <img src="card2.png" alt="Image 2">
+            <div class="overlay"></div>
+        </div>
+        <div class="card">
+            <img src="card3.png" alt="Image 3">
+            <div class="overlay"></div>
+        </div>
+    </div>
+    <h1 style="font-size:70px;
+    font-family:'Plaintain MT Pro';
+    font-weight:bold;
+    height: auto;
+    width: 100%;
+    display: block;">
+        <center>Significance of Early Childhood Education</center>
+    </h1>
+    <h2 style="font-size:30px;
+    font-family:'Plaintain MT Pro';
+    font-weight:bold;
+    height: auto;
+    width: 100%;
+    display: block;">
+        <center>We have a unique program that helps each child quickly adapt and feel at home.</center>
+    </h2>
+    <div class="image-container">
+        <img src="Group 578.png" alt="Responsive Image" id="main-image">
+        <div class="hover-text" id="text1">
+            <center>Physical<br />Development
+        </div>
+        </center>
+    </div>
+    <div class="shape-container">
+        <div class="shape"></div>
+        <h2 class="title">Our Programs</h2>
+        <div class="cards2-container">
+            <div class="cardY" id="card1">
+                <img src="Mask Group 13.png" alt="Program 1">
+                <div class="cardY-content" style="background-color:#183EB8;">
+                    <p style="font-family: 'Bahnschrift'; color:white">
+                        <font style="font-size:35px;
+                        align-items: center;
+                        font-weight: bold;
+                        align-items: center;">Play Groups</font><br />
+                        <font style="font-size:30px;
+                        font-weight:regular;font-family: 'Plaintain MT Pro';">A conducive environment for<br />
+                            your child to learn, play, and grow</br> with happy peers.<br /><br /> </font>
+                        <font
+                            style="align-items: center ; font-family: 'Plaintain MT Pro'; font-weight: regular; font-size: 30px;">
+                            Less than 3 years</font>
+                    </p>
+                </div>
+            </div>
+            <div class="cardY" id="card2">
+                <img src="Mask Group 14.png" alt="Program 2">
+                <div class="cardY-content" style="background-color:#F013e1;">
+                    <p style="font-family: 'Bahnschrift'; color:white">
+                        <font style="font-size:35px;
+                        align-items: center;
+                        font-weight: bold;
+                        align-items: center;">Nursery</font><br />
+                        <font style="font-size:30px;
+                        font-weight:regular;font-family: 'Plaintain MT Pro';">A conducive environment for<br />
+                            your child to learn, play, and grow</br> with happy peers.<br /><br /> </font>
+                        <font
+                            style="align-items: center ; font-family: 'Plaintain MT Pro'; font-weight: regular; font-size: 30px;">
+                            Less than 3 years</font>
+                    </p>
+                </div>
+            </div>
+            <div class="cardY" id="card3">
+                <img src="Mask Group 15.png" alt="Program 3">
+                <div class="cardY-content" style="background-color:#183EB8;">
+                    <p style="font-family: 'Bahnschrift'; color:white">
+                        <font style="font-size:35px;
+                        align-items: center;
+                        font-weight: bold;
+                        align-items: center;">JUNIOR KG</font><br />
+
+                        <font style="font-size:30px;
+                        font-weight:regular;font-family: 'Plaintain MT Pro';">A conducive environment for<br />
+                            your child to learn, play, and grow</br> with happy peers.<br /><br /> </font>
+                        <font
+                            style="align-items: center ; font-family: 'Plaintain MT Pro'; font-weight: regular; font-size: 30px;">
+                            Less than 3 years</font>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <button class="ybutton">Learn More</button>
+    </div>
+    <div class="gallery-container">
+        <h1 class="gallery-title" style="font-size:70px;font-family:'Plaintain MT Pro';font-weight: bold;">TreeHouse
+            Facilities</h1>
+        <div class="image-list">
+            <div class="image-item">
+                <img src="Image 3.png" alt="Image 1">
+                <div class="image-description">Summer Camp</div>
+            </div>
+            <div class="image-item">
+                <img src="Image 6.png" alt="Image 2">
+                <div class="image-description">Trained Professionals</div>
+            </div>
+        </div>
+        <p class="gallery-text">
+            <p style="font-family:'Bahnschrift';font-size:42px; font-weight:regular; color:black">We are one of the
+                leading providers <br />
+                of educational services in India<br />
+                operating maximum number of self-<br />
+                operated preschools. Our curriculum <br />
+                and trained teachers reflect our <br />
+                standards of excellence.<br />
+                and trained teachers reflect our <br />
+                standards of excellence.</p>
+        </p>
+    </div>
+    <div class="gimage-container">
+        <h1 style="font-size: 70px; font-family: 'Plaintain MT Pro'; font-weight: bold;">
+            <center>Activities</center>
+        </h1>
+        <div class="background-image"></div>
+        <div class="center-images">
+            <div class="image-box">
+                <img src="component8.png" alt="Image 1">
+                <div class="description">
+                    <p>
+                        <center>Sports Activities</center>
+                        <hr><br />
+                    </p>
+                </div>
+            </div>
+            <div class="image-box">
+                <img src="Mask Group 8.png" alt="Image 2">
+                <div class="description">
+                    <p>
+                        <center>Sports Activities</center>
+                        <hr><br />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 style="font-family:'Plaintain MT Pro'; font-size:70px; font-weight: bold;">
+        <center>Parents Testimonials</center>
+    </h1>
+    <center>
+        <div class="tv-container" class="center">
+
+            <div class="tv-image">
+                <a href="Testimonials.html">
+                <img src="Group 8.png" alt="Television" class="tv-screen"></a>
+                <div class="child-overlay">
+                    <img src="myphoto.png" alt="Child" class="child-image">
+                    <div class="child-info">
+                        <p>
+                            <font style="font-family:'Plaintain MT Pro';font-weight:regular; color: white;">
+                                Parmar Kirtan Kumar Maheshbhai<br />
+                                56-A,Samsara Luxury Apartments,TP-13,Chhani Jakat Naka Vadodara.
+                                <hr>
+                                ewiufewfwgfiwgfwfyfiwwfy9wywfwfywfwowof<br>wfwfwofwufwofuwfewfuw;ffpfuwf<br>
+                                ewiufewfwgfiwgfwfyfiwwfy9wywfwfywfwowof<br>wfwfwofwufwofuwfewfuw;ffpfuwf<br></font>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+    <footer class="footer">
+        <div class="footer-shape">
+            <!-- Add your protector shape here (e.g., an SVG) -->
+        </div>
+        <img class="footer-logo" src="logo.png" alt="Logo">
+        <p class="footer-text" style="font-family:'Bahnschrift'; font-weight: 'Regular'; font-size: 20px;">We have a
+            unique program that helps each child quickly<br>
+            adapt and feel at home. We also help each <br>child find his own way. Become a person, be happy and change the
+            world for the better.</p>
+        <div class="footer-phone">
+            <span>Phone:</span>11111111</a>
+        </div>
+        <ul class="footer-nav">
+            <li><a href="#home">Home</a></li>
+            <li><a href="Aboutus.html">About Us</a></li>
+            <li><a href="Programs.html">Programs</a></li>
+            <li><a href="Admission.html">Admission</a></li>
+            <li><a href="Gallery.html">Gallery</a></li>
+            <li><a href="Contact.html">Contact Us</a></li>
+        </ul>
+        <div class="footer-mail">
+            <span>Email:</span>treehouse@gmail.com</a>
+        </div>
+        <div class="footer-location">
+            <span>Location:</span> A-25, Yogi Nagar Township, <br>
+            B/H Akshar Pavilion, Near<br>
+            Priya Talkies, Gotri, Vadodara<br>
+            -390021
+        </div>
+        <font style=" font-size: 30px;
+        font-weight: regular;
+        font-family: 'Bahnschrift';">Direction:</font><br>
+        <img class="footer-map" src="Component 8 .1.png" alt="Map">
+        <div class="footer-underline"></div>
+        <p class="footer-madeby">All rights reserved by @treehousegotri</p>
+    </footer>
+    <script>
+        const home = document.getElementById("home");
+        const about = document.getElementById("about");
+        const gallery = document.getElementById("gallery");
+        const contact = document.getElementById("contact");
+
+        const textColor1 = "#147240";
+        const textColor2 = "#8E3B2D";
+
+        home.addEventListener("mouseover", () => {
+            home.style.setProperty("--hover-color", textColor1);
+        });
+
+        about.addEventListener("mouseover", () => {
+            about.style.setProperty("--hover-color", textColor2);
+        });
+
+        gallery.addEventListener("mouseover", () => {
+            gallery.style.setProperty("--hover-color", textColor1);
+        });
+
+        contact.addEventListener("mouseover", () => {
+            contact.style.setProperty("--hover-color", textColor2);
+        });
+        const imageContainer = document.querySelector('.image-container');
+        const text1 = document.getElementById('text1');
+        const text2 = document.getElementById('text2');
+        const text3 = document.getElementById('text3');
+
+        imageContainer.addEventListener('mousemove', (e) => {
+            const containerRect = imageContainer.getBoundingClientRect();
+            const x = e.clientX - containerRect.left;
+            const y = e.clientY - containerRect.top;
+
+            if (x > 0 && x < containerRect.width && y > 0 && y < containerRect.height) {
+                text1.style.opacity = x > containerRect.width * 0.3 && x < containerRect.width * 0.49 ? 1 : 0;
+            } else {
+                text1.style.opacity = 0;
+            }
+        });
+    </script>
+
+</body>
+
+</html>
