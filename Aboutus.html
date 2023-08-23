@@ -1,98 +1,61 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <title>Responsive Website</title>
     <style>
-        nav {
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            background-color: white;
-            padding: 10px;
-            width: 100%;
-            height: auto;
+            align-items: center;
+            padding: 10px 20px;
         }
 
         .logo img {
-            width: 100%;
-            height: auto;
-            display: block;
+            width: 55%;
+            aspect-ratio: 4/3;
+            object-fit: contain;
+            mix-blend-mode: color-burn;
         }
 
         .menu {
             list-style: none;
             display: flex;
+            margin: 0;
+            padding: 0;
         }
 
         .menu li {
             margin-right: 20px;
-        }
-
-        .menu li:last-child {
-            margin-right: 0;
-        }
-
-        .menu li a {
-            text-decoration: none;
-            font-family: "Bahnschrift";
             font-size: 30px;
-            font-weight: semibold;
-            position: relative;
-            /* To position the underline */
+            font-family: 'Bahnschrift';
+            font-weight: Semibold;
         }
 
-        .menu li a:before {
+        .menu a {
+            text-decoration: none;
+            color: white;
+            position: relative;
+        }
+
+        .menu a:hover:before {
             content: "";
             position: absolute;
             width: 100%;
             height: 2px;
-            bottom: -5px;
-            /* Adjust this value for the underline position */
             background-color: var(--hover-color);
-            visibility: hidden;
-            transform: scaleX(0);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .menu li a:hover:before {
-            visibility: visible;
-            transform: scaleX(1);
-        }
-
-        .admission-button {
-            cursor: pointer;
-            text-align: center;
-            outline: none;
-            overflow: hidden;
-            padding: 10px 20px;
-            background-color: #B7D72C;
-            color: #fff;
-            font-family: "Bahnschrift";
-            font-size: 35px;
-            font-weight: regular;
-            text-decoration: none;
-            border-radius: 12px;
-        }
-
-        .admission-button:hover {
-            background-color: #6a2f25dd;
-        }
-
-        .admission-button:active {
-            background-color: skyblue;
-            transform: translateY(4px);
-        }
-
-        .banner {
-            width: 100%;
-            max-width: 100%;
-            overflow: hidden;
-            position: relative;
-            background-size: cover;
+            bottom: -4px;
+            left: 0;
         }
 
         .banner img {
@@ -100,119 +63,106 @@
             height: auto;
             display: block;
         }
-        .image-container {
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
-            max-width: 100%;
-            box-sizing: border-box;
+
+        /* Add additional styling for responsiveness */
+        /* Define hover colors for different menu items */
+        #menu-item-1:hover:before {
+            --hover-color: #147240;
         }
 
-        .image-wrapper {
+        #menu-item-2:hover:before {
+            --hover-color: #8e3b2d;
+        }
+
+        #menu-item-3:hover:before {
+            --hover-color: #147240;
+        }
+
+        #menu-item-4:hover:before {
+            --hover-color: #8e3b2d;
+        }
+
+        /* Media Query for Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .menu {
+                margin-top: 10px;
+            }
+        }
+
+        .container {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .image-container {
             position: relative;
             flex: 1;
         }
 
-        .image-wrapper img {
+        .image {
             max-width: 100%;
             height: auto;
-            
+            display: block;
         }
 
         .second-image {
             position: absolute;
-            left: 20%;
-            top: 60%;
-            transition: opacity 0.3s;
-        }
-        .second-image .overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0);
-            background: rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            transform: scale(0);
-            transition: .3s ease;
+            bottom: -39%;    
+            left: 12%;
+            max-width: 70%;
+            height: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
         }
 
-        .second-image:hover .overlay {
-            transform: scale(1);
+        .image-container:hover .second-image {
+            opacity: 1;
         }
-
 
         .text-container {
-            position: static;
             flex: 1;
-            padding: 60px;
-            left: 40%;
-            box-sizing: border-box;
+            padding: 20px;
         }
-
-
     </style>
 </head>
 
 <body>
-    <nav>
+    <nav class="navbar">
         <div class="logo">
-            <img src="logo.png" alt="Logo" id="#home" />
+            <img src="logo.png" alt="Logo">
         </div>
-        <ul class="menu" width="100%" height="auto">
-            <li id="home"><a href="index.html" style="color: #147240">Home</a></li>
-            <li id="about"><a href="Aboutus.html" style="color: #8e3b2d">About</a></li>
-            <li id="gallery"><a href="Gallery.html" style="color: #147240">Gallery</a></li>
-            <li id="contact"><a href="Contactus.html" style="color: #8e3b2d">Contact Us</a></li>
-            <a href="EnrollNow.html" class="admission-button" width="100%" height="auto">Admission-Now</a>
+        <ul class="menu">
+            <li><a href="index.html" id="menu-item-1" style="color:#147240">Home</a></li>
+            <li><a href="AboutUs.html" id="menu-item-2" style="color:#8e3b2d">About</a></li>
+            <li><a href="Gallery.html" id="menu-item-3" style="color:#147240">Gallery</a></li>
+            <li><a href="Contactus.html" id="menu-item-4" style="color:#8e3b2d">Contact Us</a></li>
         </ul>
     </nav>
     <div class="banner">
-        <img src="Group 587.png" alt="go for it">
+        <img src="Group 587.png" alt="Banner Image">
     </div>
-    <div class="image-container">
-        <div class="image-wrapper">
-            <img src="Component 9 – 1.png" alt="Image 1">
-            <img src="Mask Group 36.png" alt="Image 2" class="second-image">
+    <div class="container">
+        <div class="image-container">
+            <img class="image" src="Component 9 – 1.png" alt="First Image">
+            <img class="second-image" src="Mask Group 36.png" alt="Second Image">
         </div>
         <div class="text-container">
-            <h1 style="font-family:'Bahnschrift'; font-size: 40px; font-weight: regular; line: space 0.1mm;">About Us</h1><br>
-            <p style="font-family: Plaintain MT Pro; font-size: 70px; font-weight: bold;">Who we are<br>
-                <font style="font-family: 'Bahnschrift'; font-size: 30px; font-weight: regular;">We have a unique
-                    program that helps each child quickly adapt and feel at home. We also help each child find his own
-                    way. Become a person, be happy and change the world for the better.</font>
-            </p>
-            </div>
-    </div>
-    <script>
-        const home = document.getElementById("home");
-        const about = document.getElementById("about");
-        const gallery = document.getElementById("gallery");
-        const contact = document.getElementById("contact");
-
-        const textColor1 = "#147240";
-        const textColor2 = "#8E3B2D";
-
-        home.addEventListener("mouseover", () => {
-            home.style.setProperty("--hover-color", textColor1);
-        });
-
-        about.addEventListener("mouseover", () => {
-            about.style.setProperty("--hover-color", textColor2);
-        });
-
-        gallery.addEventListener("mouseover", () => {
-            gallery.style.setProperty("--hover-color", textColor1);
-        });
-
-        contact.addEventListener("mouseover", () => {
-            contact.style.setProperty("--hover-color", textColor2);
-        });
-    </script>
+            <h2 style="font-family:'Bahnschrift'; font-weight: regular; font-size: 40px;">ABOUT US</h2>
+            <h2 style="font-family:'Plaintain MT Pro'; font-weight: Bold; font-size: 70px;">Who we are</h2>
+            <p style="font-family:'Bahnschrift';font-weight: regular; font-size: 30px;">
+                We have a unique program that helps each
+                child quickly adapt and feel at home. We also help each
+                child find his own way. Become a person,
+                be happy and change the world for the better.<br><br>
+                CCTV Surveillance & Constant Monitoring.<br><br>
+                Safe Compliance.<br><br>
+                Trained Professionals.</p>
+        </div>
 </body>
 
 </html>
